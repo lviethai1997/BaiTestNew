@@ -8,7 +8,7 @@ namespace Data
 {
     public class SystemConstants
     {
-        public const string Baseurl = "https://localhost:5001/";
+        public const string Baseurl = "http://localhost:6001/";
         public const string SQLcnn = "Server=.;Database=ShopDB;Trusted_Connection=True;";
     }
 }

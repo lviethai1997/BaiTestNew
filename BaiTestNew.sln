@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminApplication", "AdminApplication\AdminApplication.csproj", "{A4B5E21D-13D1-459A-AB0B-75CF82D830AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApplication", "AdminApplication\AdminApplication.csproj", "{A4B5E21D-13D1-459A-AB0B-75CF82D830AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{A3C808ED-E1FF-459D-BC97-9365E506EF27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{A3C808ED-E1FF-459D-BC97-9365E506EF27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{ACF7F3A4-54F5-4698-B13E-F39A397953D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{ACF7F3A4-54F5-4698-B13E-F39A397953D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{471B58B0-99D5-4DD8-ABAF-83DCC9FA3553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\ViewModels.csproj", "{471B58B0-99D5-4DD8-ABAF-83DCC9FA3553}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClientApplication", "WebClientApplication\WebClientApplication.csproj", "{7A71178B-33CE-4E53-B2E1-99AEE8F133C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClientApplication", "WebClientApplication\WebClientApplication.csproj", "{7A71178B-33CE-4E53-B2E1-99AEE8F133C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AC95DC2C-50D1-4412-BA4A-F73FAFC2A73D}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
