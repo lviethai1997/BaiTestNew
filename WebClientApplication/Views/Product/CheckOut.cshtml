@@ -1,0 +1,72 @@
+﻿@model ViewModels.Catalog.Checkout.CheckOutRequest
+@{
+    ViewData["Title"] = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Checkout</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="checkout_area section_gap">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Thông tin khách hàng</h3>
+                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="first" name="name" value="@Model.user.FullName">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="number" name="number" value="@Model.user.Mobile">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="email" name="compemailany" value="@Model.user.Email">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="email" name="compemailany" value="@Model.user.Address">
+                        </div>
+
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" name="compemailany">
+                            <span class="placeholder" data-placeholder="Message"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-12">
+                    <div class="order_box">
+                        <h2>Đơn hàng của bạn</h2>
+                        <ul class="list">
+                            <li><a href="#">Sản phẩm <span>Tổng</span></a></li>
+                            @{
+                                decimal subtotal = 0;
+                            }
+                            @foreach (var item in Model.carts)
+                            {
+                                var total = @item.quantity * @item.product.Price;
+                                subtotal += total;
+                                <li><a href="#">@item.product.Name <span class="middle">x @item.quantity</span> <span class="last">@total.ToString("n0")</span></a></li>
+                            }
+                        </ul>
+                        <ul class="list list_2">
+                            <li><a href="#">Tổng tiền <span>@subtotal.ToString("n0")</span></a></li>
+                        </ul>
+                        <a class="primary-btn" asp-action="ComfirmOrder" asp-controller="Product">Comfirm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

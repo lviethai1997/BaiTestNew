@@ -1,0 +1,119 @@
+﻿@model IEnumerable<ViewModels.Catalog.Orders.OrderRequest>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+
+}
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Các đơn hàng đã đặt</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mã đơn hàng
+                            </th>
+                            <th>
+                                Tên KH
+                            </th>
+                            <th>
+                                Địa chỉ
+                            </th>
+                            <th>
+                                Điện thoại
+                            </th>
+                            <th>
+                                Tổng SL
+                            </th>
+                            <th>
+                                Tổng Thu
+                            </th>
+                            <th>
+                                Trạng thái
+                            </th>
+                            <th>
+                                Thời gian
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var price = item.TotalPrice.ToString("n0");
+                            var status = item.Status;
+                            string statusShow = "";
+                           
+                            string url = "/OrderDetail." + item.ID + ".html";
+                            if (status == -1)
+                            {
+                                statusShow = "Đã hủy đơn";
+                            }
+                            if (status == 0)
+                            {
+                                statusShow = "Chờ xử lý";
+                            }
+                            if (status == 1)
+                            {
+                                statusShow = "Đang vận chuyển";
+                            }
+                            if (status == 2)
+                            {
+                                statusShow = "Đã hoàn thành";
+                            }
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerMobile)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalQuantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => statusShow)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateDate)
+                                </td>
+                                <td>
+                                    <a href="@url" class="btn btn-sm">Xem chi tiết</a> 
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

@@ -1,0 +1,90 @@
+﻿@model ViewModels.Catalog.OrderDetails.OrderDetailRequest
+
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Chi Tiết Đơn Hàng</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Họ tên khách hàng:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustommerName)
+        </dd>
+        <dt class="col-sm-2">
+            Địa chỉ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            Số điện thoại
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã sản phẩm
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Đơn giá
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            var price = item.Price.ToString("n0");
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => price)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @{
+    if (Model.OrderStatus == -1)
+    {
+        <h3>Đơn hàng đã bị Hủy</h3>
+    }else if (Model.OrderStatus == 2)
+    {
+        <h3>Đơn hàng hoàn thành</h3>
+    }else
+    {
+        @Html.ActionLink("Hủy đơn", "DestroyOrder", new { id = Model.OrderId},new{@style="float:right",@class= "btn btn-outline-danger"})
+    }
+    }
+
+    <a asp-action="Index">Back to List</a>
+</div>
+
+

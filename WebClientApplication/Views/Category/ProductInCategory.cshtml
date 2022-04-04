@@ -1,0 +1,51 @@
+﻿@using ViewModels.Catalog.Products
+@model IEnumerable<ProductInCategoryRequest>
+@{
+    ViewData["Title"] = "ProductInCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Danh mục sản phẩm: @ViewBag.Category.Name</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="lattest-product-area pb-40 category-list">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            var addtoCart = "/AddToCart-" +item.ProductId+".html";
+            var url = "/product-" + item.ProductId + ".html";
+
+            <div class="col-lg-4 col-md-6">
+                <div class="single-product">
+                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+item.ImagePath)" alt="@item.ProductName">
+                    <div class="product-details">
+                        <h6>
+                            @item.ProductName
+                        </h6>
+                        <div class="price">
+                            <h6>@item.Price.ToString("n0")</h6>
+                        </div>
+                        <div class="prd-bottom">
+
+                            <a href="@addtoCart" class="social-info">
+                                <span class="ti-bag"></span>
+                                <p class="hover-text">Thêm vào giỏ</p>
+                            </a>
+                            <a href="@url" class="social-info">
+                                <span class="lnr lnr-move"></span>
+                                <p class="hover-text">Xem chi tiết</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

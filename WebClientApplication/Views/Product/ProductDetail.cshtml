@@ -1,0 +1,99 @@
+﻿@model Data.Entites.Product
+@{
+    ViewData["Title"] = "ProductDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Chi tiết sản phẩm</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="product_image_area">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-lg-6">
+                <div class="s_Product_carousel owl-carousel owl-theme owl-loaded">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage" style="transform: translate3d(-1080px, 0px, 0px); transition: all 0s ease 0s; width: 3780px;">
+                            <div class="owl-item acvice" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div><div class="owl-item active" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div><div class="owl-item" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div><div class="owl-item" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 540px; margin-right: 0px;">
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" src="@(Data.SystemConstants.Baseurl+Model.ImagePath)" alt="@Model.Name">
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="owl-controls"><div class="owl-nav"><div class="owl-prev" style="display: none;">prev</div><div class="owl-next" style="display: none;">next</div></div><div class="owl-dots" style=""><div class="owl-dot active"><span></span></div><div class="owl-dot"><span></span></div><div class="owl-dot"><span></span></div></div></div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                    <h3>@Model.Name</h3>
+                    <h2>@Model.Price.ToString("n0")</h2>
+                    <ul class="list">
+                        <li>
+                            <a href="#">
+                                <span>Tồn kho</span> : @{
+                                    string stock = Model.Quantity.ToString() == "0" ? "Hết hàng" : Model.Quantity.ToString();
+                                }
+                                @stock
+                            </a>
+                        </li>
+                    </ul>
+                    <p>
+                        @Model.Description
+                    </p>
+                    <div class="product_count">
+                        <label for="qty">Quantity:</label>
+                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                    </div>
+                    <div class="card_area d-flex align-items-center">
+                        @{
+                            var addtoCart = "/AddToCart-" + Model.ID + ".html";
+
+                            if (Model.Quantity == 0)
+                            {
+                                <h4>Vui lòng liên hệ</h4>
+                            }
+                            else
+                            {
+                                <a class="primary-btn" href="@addtoCart">Thêm vào giỏ</a>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

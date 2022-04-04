@@ -1,0 +1,138 @@
+﻿@using ViewModels.Catalog.Cart;
+@model List<CartItemRequest>;
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Shopping Cart</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Cart</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.Count > 0)
+{
+    decimal total = 0;
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tên SP</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                                <th scope="col">Cập nhật</th>
+                                <th scope="col">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cartitem in Model)
+                            {
+                                var thanhtien = cartitem.quantity * cartitem.product.Price;
+                                total += thanhtien;
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="@(Data.SystemConstants.Baseurl+cartitem.product.ImagePath)" alt="@cartitem.product.Name" style="width:50px;height:50px">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>@cartitem.product.Name</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>@cartitem.product.Price.ToString("n0")</h5>
+                                    </td>
+                                    <td>
+                                        <div class="product_count">
+                                            <input type="number" name="qty" maxlength="3" title="Quantity:" asp-for="@cartitem.quantity" id="@($"quantity-{cartitem.product.ID}")" class="input-text qty">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>@thanhtien.ToString("n0")</h5>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success updatecartitem" data-productid="@cartitem.product.ID">Cập nhật</button>
+                                    </td>
+                                    <td>
+                                        <a asp-route="removecart" asp-route-productid="@cartitem.product.ID" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <h5>Tổng tiền</h5>
+                                </td>
+                                <td>
+                                    <h5>@total.ToString("n0")</h5>
+                                </td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" href="/index.html">Tiếp tục mua sắm</a>
+                                        <a asp-controller="Product" asp-action="Checkout" class="primary-btn">Tiếp tục thanh toán</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    @section Scripts {
+<script>
+    $(document).ready(function () {
+        $(".updatecartitem").click(function (event) {
+            event.preventDefault();
+            var productid = $(this).attr("data-productid");
+            var quantity = $("#quantity-" + productid).val();
+            $.ajax({
+                type: "POST",
+                url:"@Url.RouteUrl("updatecart")",
+                data: {
+                    productid: productid,
+                    quantity:quantity
+                },
+                success: function (result) {
+                    window.location.href = "@Url.RouteUrl("cart")";
+                }
+            });
+        });
+    });
+</script>
+      }
+
+}
+else
+{
+    <section class="order_details section_gap">
+		<div class="container">
+			<h1 class="alert alert-danger">Không có sản phẩm nào trong giỏ hàng</h1>
+		</div>
+	</section>
+
+}

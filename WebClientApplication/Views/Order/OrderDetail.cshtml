@@ -1,0 +1,128 @@
+﻿@model ViewModels.Catalog.OrderDetails.OrderDetailRequest
+
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal totalPice = 0;
+    string urlDestroyOrder = "/OrderCancel." + Model.OrderId + ".html";
+}
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Chi tiết đơn hàng</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="order_details section_gap">
+    <div class="container">
+        <div class="row order_d_inner">
+            <div class="col-lg-8">
+                <div class="details_item">
+                    <h4>Thông tin khách hàng</h4>
+                    <ul class="list">
+                        <li><a href="#"><span>Họ tên khách hàng</span> : @Model.CustommerName</a></li>
+                        <li><a href="#"><span>Địa chỉ</span> : @Model.Address</a></li>
+                        <li><a href="#"><span>Điện thoại</span> : @Model.Mobile</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="order_details_table">
+            <h2>Chi tiết đơn hàng</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mã sản phẩm
+                            </th>
+                            <th>
+                                Tên sản phẩm
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Đơn giá
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            var price = item.Price.ToString("n0");
+                            totalPice += item.Price;
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => price)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>
+                                <h4>Tổng tiền</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>@totalPice.ToString("n0")</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                @{
+                                    if (Model.OrderStatus == -1)
+                                    {
+                                        <h3>Đơn hàng đã bị Hủy</h3>
+                                    }
+                                    else if (Model.OrderStatus == 2)
+                                    {
+                                        <h3>Đơn hàng hoàn thành</h3>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-danger" onclick="comfirmOrder('@urlDestroyOrder','Bạn có chắc chắn muốn hủy đơn?')">Hủy đơn hàng</button>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function comfirmOrder(url,question){
+        var url = url;
+        var question = question
+
+        if(confirm(question)==true){
+            window.location.href = url;
+        }
+    }
+</script>
+

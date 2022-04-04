@@ -1,0 +1,100 @@
+﻿@model List<ViewModels.Catalog.Products.ProductListRequest>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section ScriptAlert{
+<script>
+    setTimeout(function(){
+     $('#msgAlert').fadeOut("slow");
+    },2000);
+</script>
+}
+
+@if (ViewBag.message != null)
+{
+    <div id="msgAlert" class="alert alert-success" role="alert">
+        @ViewBag.message
+    </div>
+}
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã sản phẩm
+                        </th>
+                        <th>
+                            Tên sản phẩm
+                        </th>
+                        <th>
+                            Hình ảnh
+                        </th>
+                        <th>
+                            Danh mục
+                        </th>
+                        <th>
+                            Tồn kho
+                        </th>
+
+                        <th>
+                            Giá tiền
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var price = item.Price.ToString("n0");
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <img src="@item.ImagePath" style="width:80px;height:80px">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CateName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => price)
+                            </td>
+                            <td>
+                                @Html.ActionLink( item.Status==0?"Hiện":"Ẩn", "Hide","Product", new { id= item.ID },new { @class= "btn btn-outline-warning"})
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id= item.ID},new {@class= "btn btn-outline-primary"}) |
+                                @Html.ActionLink("Delete", "Delete", new { id= item.ID },new {@class= "btn btn-outline-info"})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
